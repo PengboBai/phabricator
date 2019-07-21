@@ -1,0 +1,3 @@
+#!/bin/sh
+export TERM=dumb
+exec '/usr/bin/php' -f '/opt/phabricator/phabricator/bin/commit-hook' -- 'PHID-REPO-3tvcywgrp7puainkn7dt'  "$@"

@@ -1,0 +1,35 @@
+# docker compose file for phabricator
+version: "3"
+services:
+  phabricator:
+    image: phabricator:latest
+    container_name: phabricator
+    # ports:
+    #   - "80:80"
+    #   - "2222:2222"
+    network_mode: "host"
+    volumes:
+      - /home/bai/baipengbo/phabricator:/opt/phabricator
+      - /home/bai/baipengbo/phabricator/repo:/var/repo
+    tty: true
+    environment:
+      - LANG=C.UTF-8
+    restart: always
+    entrypoint: /opt/phabricator/entrypoint.sh
+
+  jenkins:
+    image: jenkins:latest
+    container_name: jenkins
+    ports:
+      - "8888:8080"
+      - "50000:50000"
+    volumes:
+      - /home/bai/baipengbo/jenkins:/var/jenkins_home
+      - /usr/bin/docker:/usr/bin/docker
+      - /var/run/docker.sock:/var/run/docker.sock
+      - /home/bai/baipengbo/workspace:/home/workspace
+      - /home/bai/baipengbo/script:/home/script
+    tty: true
+    environment:
+      - LANG=C.UTF-8
+    restart: always
